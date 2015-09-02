@@ -3,13 +3,9 @@ package com.moviedemo.protocol;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -23,8 +19,12 @@ public abstract class DataController {
 
 
 
-    public interface OnDataFetched {
-        void onFetchDataFinished(String jsonString);
+    public interface OnRawDataFetched {
+        void onRawDataFetched(String jsonString);
+    }
+
+    public interface OnDataFetched<T> {
+        void onDataFetched (List<T> items);
     }
 
     {
@@ -36,29 +36,42 @@ public abstract class DataController {
 
     protected void fetchComingMovie() {};
 
-    protected void fetchQueryData(final String queryString, final OnDataFetched listener) {
+    protected void fetchQueryData(final String queryString, final OnRawDataFetched listener) {
         this.fetchData(Urls.query.concat(queryString), listener);
     };
 
-    private void fetchData(final String url, final OnDataFetched listener) {
+    private void fetchData(final String url, final OnRawDataFetched listener) {
         this.mAsyncHttpClient.get(url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.e("DataController", "statusCode:" + statusCode);
+//                Log.e("DataController", "responseString:" + responseString);
 
+                if (listener != null) {
+                    listener.onRawDataFetched(responseString);
+                }
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.e("DataController", "statusCode:"+statusCode);
-                Log.e("DataController", ""+responseString);
+                Log.e("DataController", "statusCode:" + statusCode);
+//                Log.e("DataController", ""+responseString);
                 if (listener != null) {
-                    listener.onFetchDataFinished(responseString);
+                    listener.onRawDataFetched(responseString);
                 }
             }
         });
     }
 
+    protected boolean isNotEmptyString(String string) {
+        if (string == null || string.isEmpty()) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
     private interface Urls {
-        String query = "http://www.verycd.com/search/entries/";
+        String query = "http://www.playaround.tk:17229/search?query=";
     }
 }

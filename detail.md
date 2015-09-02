@@ -12,6 +12,15 @@
     XXXX: 表示搜索的关键字  
     
 
+## Service Interface
+
+### 1. 数据接口
++ /movies/hot
++ /movies/coming
++ /echo
++ /search
+
+
 ## 获取数据流程
 
 ### 用户主动搜索部分
