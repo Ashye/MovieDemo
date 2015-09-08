@@ -38,6 +38,7 @@
 1. **电影，电视剧**分页面、分类呈现
 2. 影视呈现时，又分类型呈现：动作、犯罪。。
 
+
 ## 服务器端
 ### Data Source
 视频相关信息来自 [电驴](http://www.verycd.com)  
@@ -59,7 +60,7 @@
 + /movies/hot
 + /movies/coming
 + /echo
-+ /search
++ /search?query=
 
 
 
