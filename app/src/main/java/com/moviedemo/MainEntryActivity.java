@@ -1,14 +1,20 @@
 package com.moviedemo;
 
+
+import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.moviedemo.data.MovieController;
 import com.moviedemo.data.SearchResultItem;
@@ -55,7 +61,37 @@ public class MainEntryActivity extends AppCompatActivity implements DataControll
         this.movieController = new MovieController();
         this.movieController.setSimpleMovieItemOnDataFetched(this);
 
+        ActionBar actionBar  = this.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.favor_items);
+        }
 
+//        this.initTabView();
+    }
+
+
+    private void initTabView() {
+        TabHost tabHost =(TabHost) this.findViewById(R.id.tabHost);
+
+        TextView view = new TextView(this);
+        view.setText(R.string.favor_items);
+
+        TabHost.TabSpec favorSpec = tabHost.newTabSpec("favors");
+        favorSpec.setIndicator(view);
+//        favorSpec.setContent();
+
+
+        TextView view1 = new TextView(this);
+        view1.setText(R.string.libraries);
+
+        TabHost.TabSpec librariesSpec = tabHost.newTabSpec("libraries");
+        librariesSpec.setIndicator(view1);
+        librariesSpec.setContent(view1.getId());
+
+        tabHost.addTab(favorSpec);
+        tabHost.addTab(librariesSpec);
+
+        tabHost.setCurrentTab(1);
     }
 
 

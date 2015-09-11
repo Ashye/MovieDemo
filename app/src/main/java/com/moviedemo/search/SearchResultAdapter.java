@@ -47,7 +47,7 @@ public class SearchResultAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         SearchResultItemViewHolder holder = null;
         if (view == null) {
-            view = this.mInflater.inflate(R.layout.search_result_item, null);
+            view = this.mInflater.inflate(R.layout.search_result_temp_list_item, null);
             holder = new SearchResultItemViewHolder();
             holder.itemName = (TextView) view.findViewById(R.id.search_item_name);
             holder.itemExtra = (TextView) view.findViewById(R.id.search_item_extra);
