@@ -5,9 +5,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.net.Uri;
-//import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,10 @@ import android.widget.ImageView;
 import com.moviedemo.fragment.FavorsFragment;
 import com.moviedemo.fragment.LibraryFragment;
 
-public class MainActivity extends AppCompatActivity implements FavorsFragment.OnFragmentInteractionListener,LibraryFragment.OnFragmentInteractionListener,View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements FavorsFragment.OnFragmentInteractionListener
+        ,LibraryFragment.OnFragmentInteractionListener
+        ,View.OnClickListener {
 
     private ImageView mTabFavors;
     private ImageView mTabLibrary;
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements FavorsFragment.On
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        Log.e("onFragmentInteraction", "sssssssss:"+uri);
     }
 
     @Override
