@@ -15,14 +15,14 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/9/2.
  */
-public class SearchResultAdapter extends BaseAdapter {
+public class SearchActionAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private List<SearchResultItem> list;
 
 
 
-    public SearchResultAdapter(Context context, List<SearchResultItem> data) {
+    public SearchActionAdapter(Context context, List<SearchResultItem> data) {
         this.mInflater = LayoutInflater.from(context);
         this.list = data;
     }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
+import com.moviedemo.Tool.Tool;
 
 import org.apache.http.Header;
 
@@ -64,14 +65,10 @@ public abstract class DataController {
     }
 
     protected boolean isNotEmptyString(String string) {
-        if (string == null || string.isEmpty()) {
-            return false;
-        }else {
-            return true;
-        }
+        return Tool.notEmptyString(string);
     }
 
     private interface Urls {
-        String query = "http://www.playaround.tk:17229/search?query=";
+        String query = "http://www.playaround.tk/search?query=";
     }
 }

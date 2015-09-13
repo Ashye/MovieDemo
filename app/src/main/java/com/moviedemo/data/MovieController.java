@@ -14,11 +14,9 @@ import java.util.List;
  */
 public class MovieController extends DataController {
 
-    private OnDataFetched<SearchResultItem> simpleMovieItemOnDataFetched;
 
 
-
-    public void query(final String queryString) {
+    public void query(final String queryString, final OnDataFetched<SearchResultItem> resultItemOnDataFetched) {
         this.fetchQueryData(queryString, new OnRawDataFetched() {
             @Override
             public void onRawDataFetched(String jsonString) {
@@ -34,17 +32,13 @@ public class MovieController extends DataController {
                     }
                 }
 
-                if (simpleMovieItemOnDataFetched != null) {
+                if (resultItemOnDataFetched != null) {
                     if (items == null) {
                         items = new ArrayList<>();
                     }
-                    simpleMovieItemOnDataFetched.onDataFetched(items);
+                    resultItemOnDataFetched.onDataFetched(items);
                 }
             }
         });
-    }
-
-    public void setSimpleMovieItemOnDataFetched(OnDataFetched<SearchResultItem> simpleMovieItemOnDataFetched) {
-        this.simpleMovieItemOnDataFetched = simpleMovieItemOnDataFetched;
     }
 }

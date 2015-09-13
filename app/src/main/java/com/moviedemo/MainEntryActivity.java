@@ -1,7 +1,6 @@
 package com.moviedemo;
 
 
-import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -19,7 +17,7 @@ import android.widget.TextView;
 import com.moviedemo.data.MovieController;
 import com.moviedemo.data.SearchResultItem;
 import com.moviedemo.protocol.DataController;
-import com.moviedemo.search.SearchResultAdapter;
+import com.moviedemo.search.SearchActionAdapter;
 
 
 import java.util.ArrayList;
@@ -32,12 +30,12 @@ public class MainEntryActivity extends AppCompatActivity implements DataControll
     private SearchView mSearchView;
     private ListView mSearchListView;
     private List<SearchResultItem> mSearchResult;
-    private SearchResultAdapter mSearchResultAdapter;
+    private SearchActionAdapter mSearchResultAdapter;
     private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
             Log.d("SearchInputListener", "" + query);
-            movieController.query(query);
+//            movieController.query(query);
             InputMethodManager inputMethodManager = (InputMethodManager) MainEntryActivity.this.getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
             mSearchView.clearFocus();
@@ -59,7 +57,7 @@ public class MainEntryActivity extends AppCompatActivity implements DataControll
         setContentView(R.layout.activity_main_entry);
 
         this.movieController = new MovieController();
-        this.movieController.setSimpleMovieItemOnDataFetched(this);
+//        this.movieController.setSimpleMovieItemOnDataFetched(this);
 
         ActionBar actionBar  = this.getSupportActionBar();
         if (actionBar != null) {
@@ -128,7 +126,7 @@ public class MainEntryActivity extends AppCompatActivity implements DataControll
 
         this.mSearchListView = (ListView) findViewById(R.id.home_search_result_lv);
         this.mSearchResult = new ArrayList<>();
-        this.mSearchResultAdapter = new SearchResultAdapter(this, this.mSearchResult);
+        this.mSearchResultAdapter = new SearchActionAdapter(this, this.mSearchResult);
         this.mSearchListView.setAdapter(this.mSearchResultAdapter);
     }
 
