@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.moviedemo.data.MovieController;
 import com.moviedemo.data.SearchResultItem;
 import com.moviedemo.protocol.DataController;
-import com.moviedemo.search.SearchActionAdapter;
+import com.moviedemo.search.SearchResultAdapter;
 
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class MainEntryActivity extends AppCompatActivity implements DataControll
     private SearchView mSearchView;
     private ListView mSearchListView;
     private List<SearchResultItem> mSearchResult;
-    private SearchActionAdapter mSearchResultAdapter;
+    private SearchResultAdapter mSearchResultAdapter;
     private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
@@ -126,7 +126,7 @@ public class MainEntryActivity extends AppCompatActivity implements DataControll
 
         this.mSearchListView = (ListView) findViewById(R.id.home_search_result_lv);
         this.mSearchResult = new ArrayList<>();
-        this.mSearchResultAdapter = new SearchActionAdapter(this, this.mSearchResult);
+        this.mSearchResultAdapter = new SearchResultAdapter(this, this.mSearchResult);
         this.mSearchListView.setAdapter(this.mSearchResultAdapter);
     }
 

@@ -14,15 +14,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.moviedemo.data.SearchResultItem;
 import com.moviedemo.fragment.FavorsFragment;
 import com.moviedemo.fragment.LibraryFragment;
+import com.moviedemo.search.SearchResultAdapter;
 import com.moviedemo.search.SearchActionListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements FavorsFragment.OnFragmentInteractionListener
         ,LibraryFragment.OnFragmentInteractionListener
-        ,View.OnClickListener {
+        ,View.OnClickListener
+        ,SearchActionListener.OnSearchResultListener {
 
     private ImageView mTabFavors;
     private ImageView mTabLibrary;
@@ -31,7 +38,6 @@ public class MainActivity extends AppCompatActivity
     private LibraryFragment libraryFragment;
 
 
-    private SearchView searchView;
 
 
     @Override
@@ -104,7 +110,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private SearchView searchView;
+    private ListView searchResultListView;
     private SearchActionListener queryTextListener;
+    private SearchResultAdapter searchResultAdapter;
+    private List<SearchResultItem> searchResults;
+
     private void initSearchMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
         this.searchView = (SearchView) MenuItemCompat.getActionView(item);
@@ -112,7 +123,32 @@ public class MainActivity extends AppCompatActivity
         this.searchView.setIconifiedByDefault(true);
 
         this.queryTextListener = new SearchActionListener();
+        this.queryTextListener.setListener(this);
         this.searchView.setOnQueryTextListener(this.queryTextListener);
+        this.searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchResultListView.setVisibility(View.GONE);
+                return true;
+            }
+        });
+
+        this.searchResultListView = (ListView) findViewById(R.id.search_result_list_view);
+        this.searchResults = new ArrayList<SearchResultItem>();
+        this.searchResultAdapter = new SearchResultAdapter(this, this.searchResults);
+        this.searchResultListView.setAdapter(this.searchResultAdapter);
+    }
+
+    @Override
+    public void onSearchResultData(List<SearchResultItem> items) {
+        for (SearchResultItem  item : items) {
+            Log.e("onSearchResultData", ""+item.getName());
+        }
+        if (items != null) {
+            this.searchResults.clear();
+            this.searchResults.addAll(items);
+            this.searchResultAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -125,6 +161,7 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.action_search:
                 this.searchView.setIconified(false);
+                this.searchResultListView.setVisibility(View.VISIBLE);
                 break;
         }
 

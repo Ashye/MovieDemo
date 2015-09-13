@@ -18,8 +18,9 @@ import java.util.List;
 public class SearchActionListener implements SearchView.OnQueryTextListener {
 
     private Handler handler;
-
     private MovieController dataController;
+
+    private OnSearchResultListener listener;
 
 
     public SearchActionListener() {
@@ -58,10 +59,18 @@ public class SearchActionListener implements SearchView.OnQueryTextListener {
         this.dataController.query(key, new DataController.OnDataFetched<SearchResultItem>() {
             @Override
             public void onDataFetched(List<SearchResultItem> items) {
-                for (SearchResultItem  item : items) {
-                    Log.e("doQuery", ""+item.getName());
+                if (listener != null) {
+                    listener.onSearchResultData(items);
                 }
             }
         });
+    }
+
+    public void setListener(OnSearchResultListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnSearchResultListener{
+        void onSearchResultData(List<SearchResultItem> items);
     }
 }
