@@ -54,8 +54,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id == android.R.id.home) {
+            this.finish();
         }
 
-        return super.onOptionsItemSelected(item);
+
+
+        return true;
     }
 }

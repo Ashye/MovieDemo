@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity
     private List<SearchResultItem> searchResults;
 
     private void initSearchMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.action_search);
-        this.searchView = (SearchView) MenuItemCompat.getActionView(item);
+        MenuItem searchMenu = menu.findItem(R.id.action_search);
+        this.searchView = (SearchView) MenuItemCompat.getActionView(searchMenu);
         this.searchView.setQueryHint(this.getResources().getString(R.string.query_hint));
         this.searchView.setIconifiedByDefault(true);
         this.searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
