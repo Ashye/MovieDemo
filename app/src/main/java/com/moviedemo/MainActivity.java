@@ -4,17 +4,22 @@ package com.moviedemo;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.moviedemo.data.SearchResultItem;
 import com.moviedemo.fragment.FavorsFragment;
@@ -100,16 +105,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        this.initSearchMenu(menu);
-
-        return true;
-    }
-
     private SearchView searchView;
     private ListView searchResultListView;
     private SearchActionListener queryTextListener;
@@ -121,6 +116,7 @@ public class MainActivity extends AppCompatActivity
         this.searchView = (SearchView) MenuItemCompat.getActionView(item);
         this.searchView.setQueryHint(this.getResources().getString(R.string.query_hint));
         this.searchView.setIconifiedByDefault(true);
+        this.searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 
         this.queryTextListener = new SearchActionListener();
         this.queryTextListener.setListener(this);
@@ -128,8 +124,8 @@ public class MainActivity extends AppCompatActivity
         this.searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                searchResultListView.setVisibility(View.GONE);
-                return true;
+                onSearchResultData(new ArrayList<SearchResultItem>());
+                return false;
             }
         });
 
@@ -137,6 +133,18 @@ public class MainActivity extends AppCompatActivity
         this.searchResults = new ArrayList<SearchResultItem>();
         this.searchResultAdapter = new SearchResultAdapter(this, this.searchResults);
         this.searchResultListView.setAdapter(this.searchResultAdapter);
+        this.searchResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                SearchResultItem item1 = searchResults.get(i);
+                Log.d("ssssssssssssss", "selected on:" + item1.getName());
+                Intent detailIntent = new Intent(view.getContext(), MovieDetailActivity.class);
+                detailIntent.putExtra("name", item1.getName());
+                detailIntent.putExtra("url", item1.getHomeUrl());
+                MainActivity.this.startActivity(detailIntent);
+            }
+        });
     }
 
     @Override
@@ -151,6 +159,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        this.initSearchMenu(menu);
+
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -160,9 +179,9 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.action_search:
-                this.searchView.setIconified(false);
-                this.searchResultListView.setVisibility(View.VISIBLE);
-                break;
+//                this.searchView.setIconified(false);
+//                this.searchResultListView.setVisibility(View.VISIBLE);
+                return true;
         }
 
         //noinspection SimplifiableIfStatement
