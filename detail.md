@@ -15,13 +15,7 @@
     + 分钟数
     + 观看平台
 
----
----
----
-
 # 2. 设计
-
-
 ## 2.1 收藏
 1. 单独一个页面显示已收藏的影视
 2. 用户可以在影视详情页面 **添加、取消** 收藏该影视
@@ -69,7 +63,6 @@
 1. **电影，电视剧**分页面、分类呈现
 2. 影视呈现时，又分类型呈现：动作、犯罪。。
 
-
 ### 2.3.1 功能点
 1. 浏览分 **电视，电影** 两部分
 2. 两部分又分别可以按类型筛选
@@ -99,7 +92,7 @@
     + 内容简介
     + 短评
 
-## 客户端
+# 客户端
 ### 获取数据流程
 
 ### 用户主动搜索部分
@@ -110,11 +103,11 @@
 
 ### 应用主动展示部分
 
-## 附录
-1. [Fragment使用 http://blog.csdn.net/lmj623565791/article/details/37970961](http://blog.csdn.net/lmj623565791/article/details/37970961)
 
 ---
----
+# 附录
+1. [Fragment使用 http://blog.csdn.net/lmj623565791/article/details/37970961](http://blog.csdn.net/lmj623565791/article/details/37970961)
+
 ---
 
 # 服务器端
@@ -133,12 +126,25 @@
     
 
 ### Service Interface
+### 1. 请求返回外层封装
+    {
+        "result" : "ok"
+        "data" : ""
+    }
+    result: 请求响应结果
+    data: 请求返回的数据，格式为 Json
 
-### 1. 数据接口
+### 2. 数据接口
 + /movies/hot
 + /movies/coming
 + /echo
 + /search?query=
++ /movies/detail
+    + POST
 
+
+        {"url":""}
+
++ adf
 
 

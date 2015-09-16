@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 SearchResultItem item1 = searchResults.get(i);
-                Log.d("ssssssssssssss", "selected on:" + item1.getName());
                 Intent detailIntent = new Intent(view.getContext(), MovieDetailActivity.class);
                 detailIntent.putExtra("name", item1.getName());
                 detailIntent.putExtra("url", item1.getHomeUrl());
@@ -149,9 +148,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSearchResultData(List<SearchResultItem> items) {
-        for (SearchResultItem  item : items) {
-            Log.e("onSearchResultData", ""+item.getName());
-        }
+//        for (SearchResultItem  item : items) {
+//            Log.e("onSearchResultData", ""+item.getHomeUrl());
+//
+//        }
+        Log.d("onSearchResultData", "result size:"+items.size());
         if (items != null) {
             this.searchResults.clear();
             this.searchResults.addAll(items);
@@ -179,8 +180,6 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.action_search:
-//                this.searchView.setIconified(false);
-//                this.searchResultListView.setVisibility(View.VISIBLE);
                 return true;
         }
 

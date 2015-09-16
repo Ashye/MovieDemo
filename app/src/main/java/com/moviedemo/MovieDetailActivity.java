@@ -4,13 +4,25 @@ package com.moviedemo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.moviedemo.data.MovieController;
+import com.moviedemo.data.MovieDetailItem;
+import com.moviedemo.protocol.DataController;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
     private String MovieName;
     private String MovieHomeUrl;
+
+    private MovieController movieController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +31,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         this.getIntentData();
         this.initActionBar();
+
+        this.movieController = new MovieController();
+
+        this.fetchMovieDetail();
     }
 
     private void getIntentData() {
@@ -35,6 +51,23 @@ public class MovieDetailActivity extends AppCompatActivity {
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(this.MovieName +" "+ this.getResources().getString(R.string.detail));
+    }
+
+    private void fetchMovieDetail() {
+        Map<String, String> body = new HashMap<String, String>();
+        body.put("url", this.MovieHomeUrl);
+        this.movieController.detail(body, new DataController.OnDataFetched<MovieDetailItem>() {
+            @Override
+            public void onDataFetched(List<MovieDetailItem> items) {
+                for (MovieDetailItem item:items) {
+                    Log.e("fetchMovieDetail", ""+item.getName());
+                    Log.e("fetchMovieDetail", ""+item.getFirstShow());
+                    Log.e("fetchMovieDetail", ""+item.getEpisode());
+                    Log.e("fetchMovieDetail", ""+item.getUpdated());
+
+                }
+            }
+        });
     }
 
     @Override
