@@ -109,15 +109,12 @@ public abstract class DataController {
     }
 
     static abstract class Urls {
-        public static String host = "http://192.168.1.119:8080";
+//        public static String host = "http://192.168.1.119:8080";
 
-//        public static String host = "http://www.playaround.tk";
+        public static String host = "http://www.playaround.tk";
         public static String query = "/movies/search?query=";
         public static String detail = "/movies/detail";
 
-//        {
-//            host = testHost;
-//        }
 
         public static String getQuery() {
             return host + query;
