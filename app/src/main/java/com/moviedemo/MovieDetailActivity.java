@@ -13,7 +13,6 @@ import com.moviedemo.data.MovieDetailItem;
 import com.moviedemo.protocol.DataController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -58,14 +57,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         body.put("url", this.MovieHomeUrl);
         this.movieController.detail(body, new DataController.OnDataFetched<MovieDetailItem>() {
             @Override
-            public void onDataFetched(List<MovieDetailItem> items) {
-                for (MovieDetailItem item:items) {
-                    Log.e("fetchMovieDetail", ""+item.getName());
-                    Log.e("fetchMovieDetail", ""+item.getFirstShow());
-                    Log.e("fetchMovieDetail", ""+item.getEpisode());
-                    Log.e("fetchMovieDetail", ""+item.getUpdated());
+            public void onDataFetched(MovieDetailItem item) {
+//                for (MovieDetailItem item:items) {
+                    Log.e("fetchMovieDetail", ""+ item.getName());
+                    Log.e("fetchMovieDetail", ""+ item.getFirstShow());
+                    Log.e("fetchMovieDetail", ""+ item.getEpisode());
+                    Log.e("fetchMovieDetail", ""+ item.getUpdated());
 
-                }
+//                }
             }
         });
     }

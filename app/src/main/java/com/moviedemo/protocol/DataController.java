@@ -27,7 +27,7 @@ public abstract class DataController {
     }
 
     public interface OnDataFetched<T> {
-        void onDataFetched (List<T> items);
+        void onDataFetched (T item);
     }
 
     {

@@ -3,6 +3,7 @@ package com.moviedemo.data;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.moviedemo.protocol.DataController;
 
@@ -17,27 +18,25 @@ public class MovieController extends DataController {
 
 
 
-    public void query(final String queryString, final OnDataFetched<SearchResultItem> resultItemOnDataFetched) {
+    public void query(final String queryString, final OnDataFetched<SearchResult> resultItemOnDataFetched) {
         this.fetchQueryData(queryString, new OnRawDataFetched() {
             @Override
             public void onRawDataFetched(String jsonString) {
                 Log.d("MovieController", ""+jsonString);
-                List<SearchResultItem> items = null;
+                SearchResult searchResult = new SearchResult();
                 if (isNotEmptyString(jsonString)) {
                     JSONObject jsonObject = JSON.parseObject(jsonString);
                     if (jsonObject.containsKey("result") && "ok".equals(jsonObject.getString("result"))) {
                         if (jsonObject.containsKey("data")) {
-                            String data = jsonObject.getString("data");
-                             items = JSON.parseArray(data, SearchResultItem.class);
+//                            String data = jsonObject.getString("data");
+                            JSONArray resultJsonArray = jsonObject.getJSONArray("data");
+                            searchResult = new SearchResult(resultJsonArray);
                         }
                     }
                 }
 
                 if (resultItemOnDataFetched != null) {
-                    if (items == null) {
-                        items = new ArrayList<>();
-                    }
-                    resultItemOnDataFetched.onDataFetched(items);
+                    resultItemOnDataFetched.onDataFetched(searchResult);
                 }
             }
         });
@@ -48,20 +47,19 @@ public class MovieController extends DataController {
             @Override
             public void onRawDataFetched(String jsonString) {
                 Log.d("MovieController", ""+jsonString);
-                List<MovieDetailItem> items = new ArrayList<MovieDetailItem>();
+                MovieDetailItem detailItem = new MovieDetailItem();
                 if (isNotEmptyString(jsonString)) {
                     JSONObject jsonObject = JSON.parseObject(jsonString);
                     if (jsonObject.containsKey("result") && "ok".equals(jsonObject.getString("result"))) {
                         if (jsonObject.containsKey("data")) {
                             JSONObject jsonData = jsonObject.getJSONObject("data");
-                            MovieDetailItem item = new MovieDetailItem(jsonData);
-                            items.add(item);
+                            detailItem = new MovieDetailItem(jsonData);
                         }
                     }
                 }
 
                 if (detailOnDataFetched != null) {
-                    detailOnDataFetched.onDataFetched(items);
+                    detailOnDataFetched.onDataFetched(detailItem);
                 }
             }
         });

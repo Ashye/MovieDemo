@@ -1,52 +1,45 @@
 package com.moviedemo.data;
 
 import com.alibaba.fastjson.JSONObject;
+import com.moviedemo.protocol.DataBase;
 
 /**
  * Created by Administrator on 2015/9/16.
  */
-public class MovieDetailItem {
-    private JSONObject detailData;
+public class MovieDetailItem extends DataBase {
 
 
     public MovieDetailItem() {
-        this.detailData = new JSONObject();
+        super();
     }
 
     public MovieDetailItem(JSONObject data) {
-        if (data == null) {
-            this.detailData = new JSONObject();
-        }else {
-            this.detailData = data;
-        }
+        super(data);
     }
 
 
     public String getName() {
-        return this.getValue("title");
+        return this.getStringValue("title");
     }
 
     public String getType() {
-        return this.getValue("类型");
+        return this.getStringValue("类型");
     }
 
     public String getActors() {
-        return this.getValue("演员");
+        return this.getStringValue("演员");
     }
 
     public String getFirstShow() {
-        return this.getValue("首播时间");
+        return this.getStringValue("首播时间");
     }
 
     public String getEpisode() {
-        return this.getValue("集数");
+        return this.getStringValue("集数");
     }
 
     public String getUpdated() {
-        return this.getValue("updated");
+        return this.getStringValue("updated");
     }
 
-    private String getValue(String key) {
-        return this.detailData.getString(key);
-    }
 }

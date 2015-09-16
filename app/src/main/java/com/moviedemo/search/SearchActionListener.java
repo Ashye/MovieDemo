@@ -6,10 +6,8 @@ import android.util.Log;
 
 import com.moviedemo.Tool.Tool;
 import com.moviedemo.data.MovieController;
-import com.moviedemo.data.SearchResultItem;
+import com.moviedemo.data.SearchResult;
 import com.moviedemo.protocol.DataController;
-
-import java.util.List;
 
 
 /**
@@ -56,11 +54,11 @@ public class SearchActionListener implements SearchView.OnQueryTextListener {
 
     private void doQuery(String key) {
         Log.e("doQuery", ""+key);
-        this.dataController.query(key, new DataController.OnDataFetched<SearchResultItem>() {
+        this.dataController.query(key, new DataController.OnDataFetched<SearchResult>() {
             @Override
-            public void onDataFetched(List<SearchResultItem> items) {
+            public void onDataFetched(SearchResult item) {
                 if (listener != null) {
-                    listener.onSearchResultData(items);
+                    listener.onSearchResultData(item);
                 }
             }
         });
@@ -71,6 +69,6 @@ public class SearchActionListener implements SearchView.OnQueryTextListener {
     }
 
     public interface OnSearchResultListener{
-        void onSearchResultData(List<SearchResultItem> items);
+        void onSearchResultData(SearchResult items);
     }
 }

@@ -8,9 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.moviedemo.R;
+import com.moviedemo.data.SearchResult;
 import com.moviedemo.data.SearchResultItem;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2015/9/2.
@@ -18,24 +17,24 @@ import java.util.List;
 public class SearchResultAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private List<SearchResultItem> list;
+    private SearchResult result;
 
 
 
-    public SearchResultAdapter(Context context, List<SearchResultItem> data) {
+    public SearchResultAdapter(Context context, SearchResult data) {
         this.mInflater = LayoutInflater.from(context);
-        this.list = data;
+        this.result = data;
     }
 
 
     @Override
     public int getCount() {
-        return list.size();
+        return result.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return list.get(i);
+        return result.get(i);
     }
 
     @Override
@@ -56,9 +55,9 @@ public class SearchResultAdapter extends BaseAdapter {
             holder = (SearchResultItemViewHolder) view.getTag();
         }
 
-        SearchResultItem item = this.list.get(i);
+        SearchResultItem item = this.result.get(i);
         holder.itemName.setText(item.getName());
-        holder.itemExtra.setText(item.getActor());
+        holder.itemExtra.setText(item.getActors());
 
         return view;
     }

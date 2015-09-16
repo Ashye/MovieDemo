@@ -10,7 +10,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +18,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.moviedemo.data.SearchResult;
 import com.moviedemo.data.SearchResultItem;
 import com.moviedemo.fragment.FavorsFragment;
 import com.moviedemo.fragment.LibraryFragment;
@@ -28,7 +27,6 @@ import com.moviedemo.search.SearchResultAdapter;
 import com.moviedemo.search.SearchActionListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements FavorsFragment.OnFragmentInteractionListener
@@ -109,7 +107,7 @@ public class MainActivity extends AppCompatActivity
     private ListView searchResultListView;
     private SearchActionListener queryTextListener;
     private SearchResultAdapter searchResultAdapter;
-    private List<SearchResultItem> searchResults;
+    private SearchResult searchResults;
 
     private void initSearchMenu(Menu menu) {
         MenuItem searchMenu = menu.findItem(R.id.action_search);
@@ -124,13 +122,13 @@ public class MainActivity extends AppCompatActivity
         this.searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                onSearchResultData(new ArrayList<SearchResultItem>());
+                onSearchResultData(new SearchResult());
                 return false;
             }
         });
 
         this.searchResultListView = (ListView) findViewById(R.id.search_result_list_view);
-        this.searchResults = new ArrayList<SearchResultItem>();
+        this.searchResults = new SearchResult();
         this.searchResultAdapter = new SearchResultAdapter(this, this.searchResults);
         this.searchResultListView.setAdapter(this.searchResultAdapter);
         this.searchResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -147,15 +145,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSearchResultData(List<SearchResultItem> items) {
-//        for (SearchResultItem  item : items) {
+    public void onSearchResultData(SearchResult items) {
+//        for (SearchResult  item : items) {
 //            Log.e("onSearchResultData", ""+item.getHomeUrl());
 //
 //        }
         Log.d("onSearchResultData", "result size:"+items.size());
         if (items != null) {
-            this.searchResults.clear();
-            this.searchResults.addAll(items);
+            this.searchResults.replaceAll(items);
             this.searchResultAdapter.notifyDataSetChanged();
         }
     }
