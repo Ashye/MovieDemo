@@ -24,6 +24,7 @@
     + 取消收藏
     + 显示更新进度：已更新集数、总集数
     + 显示观看进度：集数，分钟数，平台
+4. 收藏功能只在本地保存，并不同步到服务器
 
 ### 2.1.1 功能点
 1. 收藏感兴趣的影视
@@ -71,6 +72,7 @@
 
 ### 2.3.2 逻辑概述
 
+
 ### 2.3.3 详细设计
 #### 1. 影视浏览页面
 1. 以ViewPager显示大种类
@@ -92,6 +94,8 @@
     + 内容简介
     + 短评
 
+
+
 # 客户端
 ### 获取数据流程
 
@@ -111,7 +115,7 @@
 ---
 
 # 服务器端
-### Data Source
+## 服务器端数据来源
 视频相关信息来自 [电驴](http://www.verycd.com)  
 电驴搜索接口:  
 
@@ -125,26 +129,121 @@
     XXXX: 表示搜索的关键字  
     
 
-### Service Interface
+## Service Interface
 ### 1. 请求返回外层封装
+#### 1.1 请求成功返回
     {
         "result" : "ok"
-        "data" : ""
+        "data" : []
     }
     result: 请求响应结果
-    data: 请求返回的数据，格式为 Json
+    data: 请求返回的数据，格式为 JsonArray
+
+#### 1.2 请求失败返回
+    {
+        "result" : "error"
+        "data" : "error message"
+    }
+    result: 请求响应结果
+    data: 请求返回的错误原因
+
 
 ### 2. 数据接口
-+ /movies/hot
-+ /movies/coming
-+ /echo
-+ /search?query=
-+ /movies/detail
-    + POST
+#### 2.1 /movies/hot
+#### 2.2 /movies/coming
+#### 2.3 /echo
 
 
-        {"url":""}
+#### 2.4 查询接口
+    /movies/search?query=
 
-+ adf
+##### 2.4.1 请求格式
+    GET http://xxxx/movies/search?query=value
+其中 *query* 为查询参数名，支持 *电影名字，电视剧名字，演员名字* 等查询
+
+##### 2.4.2 返回格式
+    {
+        "result":"ok",
+        "data":[
+            {
+                "updated":"",
+                "name":"",
+                "cover":"",
+                "actor":"",
+                "homeUrl":"",
+                "type":"",
+                "description":""
+            },
+            ...    
+        ]
+    }
+其中 *data* 为查询到的数据
 
 
+#### 2.5 详情接口
+    /movies/detail
+
+##### 2.5.1 请求格式
+    Content-Type: application/x-www-form-urlencoded
+    
+    POST http://xxxx/movies/detail
+    url=value1&type=value2
+    
+    url:请求页面的网址
+    type:请求数据的类型
+其中 *url=value1&type=value2* 为 POST 上传的内容，且必须指定此次 HTTP 请求的 Content-Type 为 *application/x-www-form-urlencoded*  
+
+
+##### 2.5.2 返回格式
+    {
+        "result":"ok",
+        "extra":{
+            "url":"",
+            "type":""
+        },
+        "data":{
+            "集数":"",
+            "首播时间":"",
+            "updated":"",
+            "看过":"",
+            "演员":"",
+            "title":"",
+            "地区":""，
+            "编剧":"",
+            "cover":"",
+            "导演":"",
+            "在看":"",
+            "想看":"",
+            "电视台":"",
+            "platform":[],
+            "类型":"",
+            "posters":[],
+            "summary":"",
+        }
+    }
+其中 *data* 为详情数据，*platform* 为支持的播放平台列表，格式为 JsonArray， *posters* 为剧照列表，格式为 JsonArray
+
+电影与电视剧共有的属性:
+"名字":
+"封面":
+"类型":
+"地区":
+"导演":
+"编剧":
+"演员":
+"在看":
+"看过":
+"想看":
+"简介":
+"剧照":
+
+电视剧额外属性：
+"更新":
+"集数":
+"电视台":
+"首播时间":
+"播放平台":
+
+电影额外属性：
+"imdb号":
+"上映时间":
