@@ -26,8 +26,6 @@ import com.moviedemo.fragment.LibraryFragment;
 import com.moviedemo.search.SearchResultAdapter;
 import com.moviedemo.search.SearchActionListener;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity
         implements FavorsFragment.OnFragmentInteractionListener
         ,LibraryFragment.OnFragmentInteractionListener
@@ -136,9 +134,10 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 SearchResultItem item1 = searchResults.get(i);
-                Intent detailIntent = new Intent(view.getContext(), MovieDetailActivity.class);
+                Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
                 detailIntent.putExtra("name", item1.getName());
                 detailIntent.putExtra("url", item1.getHomeUrl());
+                detailIntent.putExtra("type", item1.getType());
                 MainActivity.this.startActivity(detailIntent);
             }
         });

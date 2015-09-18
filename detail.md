@@ -154,7 +154,7 @@
 #### 2.3 /echo
 
 
-#### 2.4 查询接口
+#### 2.4 查询接口   返回数据需要精减？？
     /movies/search?query=
 
 ##### 2.4.1 请求格式
@@ -195,55 +195,95 @@
 
 
 ##### 2.5.2 返回格式
+**电视剧：**
+
     {
         "result":"ok",
         "extra":{
             "url":"",
-            "type":""
+            "type":"tv"
         },
         "data":{
-            "集数":"",
-            "首播时间":"",
-            "updated":"",
-            "看过":"",
-            "演员":"",
-            "title":"",
-            "地区":""，
-            "编剧":"",
+            "name":"",
             "cover":"",
-            "导演":"",
-            "在看":"",
-            "想看":"",
-            "电视台":"",
-            "platform":[],
-            "类型":"",
-            "posters":[],
-            "summary":"",
+            "category":"",
+            "area":"",
+            "episodes":"",
+            "director":"",
+            "writer":"",
+            "actor":"",
+            "TVStation":"",
+            "releaseDate":"",
+            "platform":[
+                {
+                    "":0
+                },
+                ...
+            ],
+            "poster":[],
+            "summary":""
+        }
+    }
+
+**电影：**
+
+    {
+       "result":"ok",
+       "extra":{
+           "url":"",
+           "type":"movie"
+       },
+        "data":{
+            "name":"",
+            "cover":"",
+            "category":"",
+            "area":"",
+            "director":"",
+            "writer":"",
+            "actor":"",
+            "releaseDate":"",
+            "poster":[],
+            "summary":""
         }
     }
 其中 *data* 为详情数据，*platform* 为支持的播放平台列表，格式为 JsonArray， *posters* 为剧照列表，格式为 JsonArray
 
 电影与电视剧共有的属性:
-"名字":
-"封面":
-"类型":
-"地区":
-"导演":
-"编剧":
-"演员":
-"在看":
-"看过":
-"想看":
-"简介":
-"剧照":
+"名字":name
+"封面":cover
+"类型":category
+"地区":area
+"导演":director
+"编剧":writer
+"演员":actor
+"简介":summary
+"剧照":poster
+"首映日期":releasedDate
 
 电视剧额外属性：
-"更新":
-"集数":
-"电视台":
-"首播时间":
-"播放平台":
+"集数":episodes
+"电视台":TVStation
+"播放平台-更新":platform
 
 电影额外属性：
-"imdb号":
-"上映时间":
+//"imdb号":imdb
+
+
+hot
+coming
+
+
+query:Universal
+detail
+    movie
+    tv
+    book
+
+
+DataController
+
+UniversalDataController
+
+MovieDataController
+
+TVDataController

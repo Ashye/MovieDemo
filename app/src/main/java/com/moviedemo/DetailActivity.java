@@ -15,10 +15,11 @@ import com.moviedemo.protocol.DataController;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
 
     private String MovieName;
     private String MovieHomeUrl;
+    private String movieType;
 
     private MovieController movieController;
 
@@ -43,6 +44,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         }else {
             this.MovieName = bundle.getString("name");
             this.MovieHomeUrl = bundle.getString("url");
+            this.movieType = bundle.getString("type");
         }
     }
 
@@ -55,14 +57,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void fetchMovieDetail() {
         Map<String, String> body = new HashMap<String, String>();
         body.put("url", this.MovieHomeUrl);
+        body.put("type", this.movieType);
         this.movieController.detail(body, new DataController.OnDataFetched<MovieDetailItem>() {
             @Override
             public void onDataFetched(MovieDetailItem item) {
 //                for (MovieDetailItem item:items) {
-                    Log.e("fetchMovieDetail", ""+ item.getName());
-                    Log.e("fetchMovieDetail", ""+ item.getFirstShow());
-                    Log.e("fetchMovieDetail", ""+ item.getEpisode());
-                    Log.e("fetchMovieDetail", ""+ item.getUpdated());
+                    Log.e("fetchItemDetailData", ""+ item.getName());
+                    Log.e("fetchItemDetailData", ""+ item.getReleasedDate());
+                    Log.e("fetchItemDetailData", ""+ item.getCategory());
+                    Log.e("fetchItemDetailData", ""+ item.getActor());
 
 //                }
             }

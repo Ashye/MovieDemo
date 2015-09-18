@@ -5,8 +5,8 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 
 import com.moviedemo.Tool.Tool;
-import com.moviedemo.data.MovieController;
 import com.moviedemo.data.SearchResult;
+import com.moviedemo.data.UniversalDataController;
 import com.moviedemo.protocol.DataController;
 
 
@@ -16,13 +16,13 @@ import com.moviedemo.protocol.DataController;
 public class SearchActionListener implements SearchView.OnQueryTextListener {
 
     private Handler handler;
-    private MovieController dataController;
+    private UniversalDataController dataController;
 
     private OnSearchResultListener listener;
 
 
     public SearchActionListener() {
-        this.dataController = new MovieController();
+        this.dataController = new UniversalDataController();
         this.handler = new Handler();
     }
 

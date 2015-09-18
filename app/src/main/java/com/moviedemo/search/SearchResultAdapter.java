@@ -57,7 +57,7 @@ public class SearchResultAdapter extends BaseAdapter {
 
         SearchResultItem item = this.result.get(i);
         holder.itemName.setText(item.getName());
-        holder.itemExtra.setText(item.getActors());
+        holder.itemExtra.setText(item.getActor());
 
         return view;
     }

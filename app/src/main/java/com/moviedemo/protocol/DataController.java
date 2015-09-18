@@ -9,16 +9,15 @@ import com.moviedemo.Tool.Tool;
 
 import org.apache.http.Header;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2015/9/1.
+ * 通用数据获取基类，与所获取的数据类型不相关
  */
 public abstract class DataController {
 
     private AsyncHttpClient mAsyncHttpClient;
-
 
 
 
@@ -41,17 +40,16 @@ public abstract class DataController {
     }
 
 
-    protected void fetchHotMovie() {};
-
-    protected void fetchComingMovie() {};
 
     protected void fetchQueryData(final String queryString, final OnRawDataFetched listener) {
         this.fetchDataByGet(Urls.getQuery().concat(queryString), listener);
     };
 
-    protected void fetchMovieDetail(final Map<String, String> postData, final OnRawDataFetched listener) {
+    protected void fetchItemDetailData(final Map<String, String> postData, final OnRawDataFetched listener) {
         this.fetchDataByPost(Urls.getDetail(), postData, listener);
     }
+
+
 
     private void fetchDataByPost(final String url, final Map<String, String> postData, final OnRawDataFetched listener) {
 
