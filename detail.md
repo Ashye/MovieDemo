@@ -164,15 +164,16 @@
 ##### 2.4.2 返回格式
     {
         "result":"ok",
+        "extra":{
+            "query":""
+        },
         "data":[
             {
-                "updated":"",
                 "name":"",
-                "cover":"",
                 "actor":"",
                 "homeUrl":"",
                 "type":"",
-                "description":""
+                "typeName":""
             },
             ...    
         ]

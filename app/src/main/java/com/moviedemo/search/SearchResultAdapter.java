@@ -50,6 +50,7 @@ public class SearchResultAdapter extends BaseAdapter {
             holder = new SearchResultItemViewHolder();
             holder.itemName = (TextView) view.findViewById(R.id.search_item_name);
             holder.itemExtra = (TextView) view.findViewById(R.id.search_item_extra);
+            holder.itemType = (TextView) view.findViewById(R.id.search_item_type);
             view.setTag(holder);
         }else {
             holder = (SearchResultItemViewHolder) view.getTag();
@@ -58,12 +59,14 @@ public class SearchResultAdapter extends BaseAdapter {
         SearchResultItem item = this.result.get(i);
         holder.itemName.setText(item.getName());
         holder.itemExtra.setText(item.getActor());
+        holder.itemType.setText("["+item.getType()+"]");
 
         return view;
     }
 
     private static class SearchResultItemViewHolder {
         public TextView itemName;
+        public TextView itemType;
         public TextView itemExtra;
     }
 }

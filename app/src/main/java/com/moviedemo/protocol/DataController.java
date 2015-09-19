@@ -9,6 +9,8 @@ import com.moviedemo.Tool.Tool;
 
 import org.apache.http.Header;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,7 +33,7 @@ public abstract class DataController {
 
     {
         this.mAsyncHttpClient = new AsyncHttpClient();
-        this.mAsyncHttpClient.addHeader("Content-Type", "application/x-www-form-urlencoded");
+        this.mAsyncHttpClient.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         this.mAsyncHttpClient.setConnectTimeout(60000);
         this.mAsyncHttpClient.setTimeout(90000);
         this.mAsyncHttpClient.setResponseTimeout(30000);
@@ -74,6 +76,13 @@ public abstract class DataController {
 
     private RequestParams setRequestParams(final Map<String, String> postData) {
         if (postData != null && !postData.isEmpty()) {
+
+            if (postData.containsKey("type")) {
+                String type = postData.get("type");
+            }
+
+
+
             RequestParams requestParams = new RequestParams(postData);
             return requestParams;
         }else {
