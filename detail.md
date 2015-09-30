@@ -154,7 +154,7 @@
 #### 2.3 /echo
 
 
-#### 2.4 查询接口   返回数据需要精减？？
+#### 2.4 查询接口
     /movies/search?query=
 
 ##### 2.4.1 请求格式
@@ -248,6 +248,32 @@
         }
     }
 其中 *data* 为详情数据，*platform* 为支持的播放平台列表，格式为 JsonArray， *posters* 为剧照列表，格式为 JsonArray
+
+#### 2.6 收藏接口
+    本接口暂时在客户端使用，并未上传至服务器，即收藏数据只保留在本地
+
+##### 2.6.1 保存数据结构
+```
+{
+    "library":{
+        "id":{
+            "searchItem":{},
+            "detailItem":{},
+            "catagory":"",
+            "id":""
+        },
+        "id":{
+            "searchItem":{},
+            "detailItem":{},
+            "catagory":"",
+            "id":""
+        },
+        ...
+    }
+}
+```
+其中 *id*
+
 
 电影与电视剧共有的属性:
 "名字":name

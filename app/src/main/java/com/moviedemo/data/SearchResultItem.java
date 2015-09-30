@@ -27,6 +27,10 @@ public class SearchResultItem extends DataBase{
         return this.getStringValue("type");
     }
 
+    public String getTypeName() {
+        return this.getStringValue("typeName");
+    }
+
     public String getActor() {
         return this.getStringValue("actor");
     }

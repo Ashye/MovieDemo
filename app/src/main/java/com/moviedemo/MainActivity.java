@@ -134,10 +134,8 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 SearchResultItem item1 = searchResults.get(i);
-                Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
-                detailIntent.putExtra("name", item1.getName());
-                detailIntent.putExtra("url", item1.getHomeUrl());
-                detailIntent.putExtra("type", item1.getType());
+                Intent detailIntent = new Intent(view.getContext(), MediaDetailActivity.class);
+                detailIntent.putExtra("data", item1.getOriginalData().toJSONString());
                 MainActivity.this.startActivity(detailIntent);
             }
         });
@@ -145,10 +143,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSearchResultData(SearchResult items) {
-//        for (SearchResult  item : items) {
-//            Log.e("onSearchResultData", ""+item.getHomeUrl());
-//
-//        }
         Log.d("onSearchResultData", "result size:"+items.size());
         if (items != null) {
             this.searchResults.replaceAll(items);

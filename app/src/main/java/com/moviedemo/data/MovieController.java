@@ -13,26 +13,37 @@ import java.util.Map;
 public class MovieController extends UniversalDataController {
 
 
-    public void detail(final Map<String, String> body, final OnDataFetched<MovieDetailItem> detailOnDataFetched) {
-        this.fetchItemDetailData(body, new OnRawDataFetched() {
+    public void detail(final Map<String, String> body, final OnDataFetched<MovieDetailItem> movieDetailItemListener) {
+        this.universalDetailData(body, new UniversalDataDetailListener<JSONObject>() {
             @Override
-            public void onRawDataFetched(String jsonString) {
-                Log.d("MovieController", "" + jsonString);
-                MovieDetailItem detailItem = null;
-                if (isNotEmptyString(jsonString)) {
-                    JSONObject jsonObject = JSON.parseObject(jsonString);
-                    if (jsonObject.containsKey("result") && "ok".equals(jsonObject.getString("result"))) {
-                        if (jsonObject.containsKey("data")) {
-                            JSONObject jsonData = jsonObject.getJSONObject("data");
-                            detailItem = new MovieDetailItem(jsonData);
-                        }
-                    }
-                }
-
-                if (detailOnDataFetched != null) {
-                    detailOnDataFetched.onDataFetched(detailItem);
+            public void OnUniversalDataDetailFetched(JSONObject item, JSONObject extra) {
+                if (movieDetailItemListener != null) {
+                    movieDetailItemListener.onDataFetched(new MovieDetailItem(item));
                 }
             }
         });
     }
+
+//    public void detail(final Map<String, String> body, final OnDataFetched<MovieDetailItem> detailOnDataFetched) {
+//        this.fetchItemDetailData(body, new OnRawDataFetched() {
+//            @Override
+//            public void onRawDataFetched(String jsonString) {
+//            Log.d("MovieController", "" + jsonString);
+//            MovieDetailItem detailItem = null;
+//            if (isNotEmptyString(jsonString)) {
+//                JSONObject jsonObject = JSON.parseObject(jsonString);
+//                if (jsonObject.containsKey("result") && "ok".equals(jsonObject.getString("result"))) {
+//                    if (jsonObject.containsKey("data")) {
+//                        JSONObject jsonData = jsonObject.getJSONObject("data");
+//                        detailItem = new MovieDetailItem(jsonData);
+//                    }
+//                }
+//            }
+//
+//            if (detailOnDataFetched != null) {
+//                detailOnDataFetched.onDataFetched(detailItem);
+//            }
+//            }
+//        });
+//    }
 }

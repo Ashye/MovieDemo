@@ -15,7 +15,7 @@
         <include
             android:id="@+id/tab_menus_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
             android:layout_alignParentBottom="true"
             layout="@layout/bottom_tab_menus"/>
 
@@ -36,7 +36,8 @@
         android:paddingLeft="10dp"
         android:id="@+id/search_result_list_view"
         android:background="#ffffffff"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:visibility="visible">
     </ListView>
 
 

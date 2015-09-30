@@ -30,4 +30,15 @@ public abstract class DataBase {
         return this.jsonData.getString(key);
     }
 
+    public JSONObject getOriginalData() {
+        return this.jsonData;
+    }
+
+    public boolean isMovie() {
+        return "movie".equals(this.jsonData.getString("type"));
+    }
+
+    public boolean isTV() {
+        return "tv".equals(this.jsonData.getString("type"));
+    }
 }

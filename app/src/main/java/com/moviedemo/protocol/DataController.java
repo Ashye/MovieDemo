@@ -1,5 +1,7 @@
 package com.moviedemo.protocol;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -111,6 +113,25 @@ public abstract class DataController {
         });
     }
 
+
+    /**
+     * storage data to local file
+     */
+
+
+    private <M extends MediaData> boolean saveObject(M item, String field, Context context) {
+        return this.saveJsonString(item.getOriginalData().toJSONString(), field+"_"+item.getName(), context);
+    }
+
+    private boolean saveJsonString(String jsonData, String dataKey, Context context) {
+        SharedPreferences sp = context.getSharedPreferences("DataLibrary.db", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(dataKey, jsonData);
+        return editor.commit();
+    }
+
+
+
     protected boolean isNotEmptyString(String string) {
         return Tool.notEmptyString(string);
     }
@@ -119,6 +140,7 @@ public abstract class DataController {
 //        public static String host = "http://192.168.1.119:8080";
 
         public static String host = "http://www.playaround.tk";
+
         public static String query = "/movies/search?query=";
         public static String detail = "/movies/detail";
 

@@ -17,21 +17,21 @@ public class TVController extends UniversalDataController {
         this.fetchItemDetailData(body, new OnRawDataFetched() {
             @Override
             public void onRawDataFetched(String jsonString) {
-                Log.d("MovieController", "" + jsonString);
-                TVDetailItem detailItem = null;
-                if (isNotEmptyString(jsonString)) {
-                    JSONObject jsonObject = JSON.parseObject(jsonString);
-                    if (jsonObject.containsKey("result") && "ok".equals(jsonObject.getString("result"))) {
-                        if (jsonObject.containsKey("data")) {
-                            JSONObject jsonData = jsonObject.getJSONObject("data");
-                            detailItem = new TVDetailItem(jsonData);
-                        }
+            Log.d("MovieController", "" + jsonString);
+            TVDetailItem detailItem = null;
+            if (isNotEmptyString(jsonString)) {
+                JSONObject jsonObject = JSON.parseObject(jsonString);
+                if (jsonObject.containsKey("result") && "ok".equals(jsonObject.getString("result"))) {
+                    if (jsonObject.containsKey("data")) {
+                        JSONObject jsonData = jsonObject.getJSONObject("data");
+                        detailItem = new TVDetailItem(jsonData);
                     }
                 }
+            }
 
-                if (detailOnDataFetched != null) {
-                    detailOnDataFetched.onDataFetched(detailItem);
-                }
+            if (detailOnDataFetched != null) {
+                detailOnDataFetched.onDataFetched(detailItem);
+            }
             }
         });
     }
